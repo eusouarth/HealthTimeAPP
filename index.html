@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthTime - Protótipo TCC</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+  <!-- CABEÇALHO COM A LOGO OFICIAL -->
+  <header class="app-header">
+    <div class="logo-container">
+      <!-- Ícone do Coração com Eletrocardiograma -->
+      <svg class="logo-heart" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M3.5 12h4l2-4 3 8 2-4h5" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="logo-text">Health<span>Time</span></div>
+    </div>
+    <div class="status-badge">Pulseira Conectada</div>
+  </header>
+
+  <!-- NAVEGAÇÃO ENTRE TELAS -->
+  <nav class="nav-tabs">
+    <button class="tab-btn active" onclick="mudarTela('home')">1. Monitor</button>
+    <button class="tab-btn" onclick="mudarTela('historico')">3. Histórico</button>
+    <button class="tab-btn" onclick="mudarTela('telemedicina')">5. Telemedicina</button>
+  </nav>
+
+  <!-- ================= TELA 1: MONITORAMENTO ATIVO ================= -->
+  <div id="screen-home" class="screen active">
+    <div class="card card-welcome">
+      <p class="date-text">QUARTA, 21 DE OUTUBRO</p>
+      <h3 class="welcome-title">Bom dia, João</h3>
+      <p class="welcome-desc">Monitoramento contínuo ativo. Sua pulseira está registrando leituras em tempo real.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span>Frequência Cardíaca</span>
+        <span>🫀</span>
+      </div>
+      <div class="card-value">
+        <span id="bpmValue">72</span> <small>BPM</small>
+      </div>
+      <div class="card-status" id="bpmStatus">● Ritmo normal em repouso</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span>Saturação de Oxigênio (SpO₂)</span>
+        <span>🩸</span>
+      </div>
+      <div class="card-value">
+        <span id="spo2Value">97</span> <small>%</small>
+      </div>
+      <div class="card-status" style="color: #38bdf8;">● Nível ideal de perfusão</div>
+    </div>
+
+    <!-- BANNER DE ALERTA DINÂMICO -->
+    <div id="alertBanner" class="alert-banner" style="display: none;">
+      <h2>⚠️ ALERTA DE RISCO CARDÍACO!</h2>
+      <p id="alertMessage">Anomalia detectada nos sinais vitais.</p>
+      <div class="timer-box">Acionando suporte em: <span id="countdown">10</span>s</div>
+      <button class="btn-cancel" onclick="cancelarAlerta()">ESTOU BEM (CANCELAR)</button>
+    </div>
+  </div>
+
+  <!-- ================= TELA 3: HISTÓRICO E DETALHE DO ALERTA ================= -->
+  <div id="screen-historico" class="screen">
+    <div class="card">
+      <h3 class="section-title">📊 Histórico do Banco de Dados</h3>
+      <p class="section-subtitle">Últimas ocorrências salvas no SQLite via DB Browser.</p>
+      
+      <div id="listaHistorico" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+        <p style="font-size: 0.75rem; color: #94a3b8;">Carregando histórico...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TELA 5: TELEMEDICINA E SUPORTE SUS ================= -->
+  <div id="screen-telemedicina" class="screen">
+    <div class="card tele-card">
+      <h3 class="tele-title">👩‍⚕️ Teleatendimento Agendado</h3>
+      <p class="doctor-name">Dra. Fernanda - Cardiologista (SUS)</p>
+      <p class="tele-time">📅 Hoje, às 14:30 (Por vídeo)</p>
+      
+      <div class="summary-box">
+        <p><b>Resumo compartilhado:</b> Dados enviados diretamente do prontuário eletrônico.</p>
+      </div>
+
+      <button class="btn-tele" onclick="alert('Conectando à sala segura de telemedicina do SUS...')">
+        Acessar Sala de Espera
+      </button>
+    </div>
+
+    <div class="card">
+      <h3 class="emergency-title">🚨 Preciso de Ajuda Urgente</h3>
+      <p class="emergency-desc">Dor no peito, falta de ar intensa ou desmaio exigem atendimento imediato.</p>
+      <a href="tel:192" class="btn-samu">Ligar para o SAMU 192</a>
+    </div>
+  </div>
+
+  <!-- PAINEL DE CONTROLE PARA O DIA DA APRESENTAÇÃO (TCC) -->
+  <footer class="demo-controls">
+    <p>Painel de Demonstração (Banca do TCC)</p>
+    <div class="btn-group">
+      <button class="btn-demo btn-normal" onclick="setCenario('NORMAL')">Normal (72 BPM)</button>
+      <button class="btn-demo btn-warning" onclick="setCenario('TAQUICARDIA')">Crítico (138 BPM)</button>
+      <button class="btn-demo btn-danger" onclick="setCenario('QUEDA')">Queda MPU-6050</button>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
