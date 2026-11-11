@@ -1,3 +1,20 @@
+// Função para carregar a data atual formatada automaticamente em Português
+function atualizarDataAtual() {
+    const elementoData = document.querySelector('.date-text');
+    if (!elementoData) return;
+
+    const agora = new Date();
+    
+    // Formata o dia da semana, dia do mês e mês por extenso
+    const opcoes = { weekday: 'long', day: 'numeric', month: 'long' };
+    let dataFormatada = agora.toLocaleDateString('pt-BR', opcoes);
+    
+    // Deixa a primeira letra maiúscula (ex: "quarta-feira, 11 de novembro" -> "Quarta-feira, 11 de novembro")
+    dataFormatada = dataFormatada.charAt(0).toUpperCase() + dataFormatada.slice(1);
+    
+    elementoData.textContent = dataFormatada;
+}
+
 function mudarTela(idTela) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -33,7 +50,7 @@ setInterval(() => {
     bpm = Math.floor(Math.random() * (75 - 70 + 1)) + 70;
     spo2 = 97;
     bpmStatusElem.innerText = "● Ritmo normal em repouso";
-    bpmStatusElem.style.color = "#34d399";
+    bpmStatusElem.style.color = "#10b981";
     alertBanner.style.display = 'none';
     alertaJaEnviado = false;
 
@@ -41,7 +58,7 @@ setInterval(() => {
     bpm = 138;
     spo2 = 91;
     bpmStatusElem.innerText = "● CRÍTICO: Taquicardia severa";
-    bpmStatusElem.style.color = "#ef4444";
+    bpmStatusElem.style.color = "#f43f5e";
     dispararAlerta("Frequência cardíaca crítica acima de 120 BPM em repouso!");
 
   } else if (cenarioAtual === 'QUEDA') {
@@ -117,13 +134,13 @@ function salvarAlertaNoBanco(descricao) {
 
 function carregarHistoricoDoBanco() {
   const lista = document.getElementById('listaHistorico');
-  lista.innerHTML = '<p style="font-size: 0.75rem; color: #94a3b8;">Buscando dados do servidor...</p>';
+  lista.innerHTML = '<p style="font-size: 0.75rem; color: #64748b;">Buscando dados do servidor...</p>';
 
   fetch('api/listar_historico.php')
     .then(res => res.json())
     .then(dados => {
       if (dados.length === 0) {
-        lista.innerHTML = '<p style="font-size: 0.75rem; color: #94a3b8;">Nenhum registro encontrado no banco.</p>';
+        lista.innerHTML = '<p style="font-size: 0.75rem; color: #64748b;">Nenhum registro encontrado no banco.</p>';
         return;
       }
 
@@ -132,13 +149,18 @@ function carregarHistoricoDoBanco() {
         lista.innerHTML += `
           <div class="history-item">
             <div><b>Evento:</b> ${item.tipo_evento} (${item.bpm} BPM | SpO₂: ${item.spo2}%)</div>
-            <div style="color: #94a3b8; font-size: 0.7rem;">${item.descricao}</div>
-            <div style="font-size: 0.65rem; color: #38bdf8; margin-top: 2px;">${item.data_hora}</div>
+            <div style="color: #64748b; font-size: 0.7rem; margin-top: 2px;">${item.descricao}</div>
+            <div class="history-date">${item.data_hora}</div>
           </div>
         `;
       });
     })
     .catch(err => {
-      lista.innerHTML = '<p style="font-size: 0.75rem; color: #ef4444;">Erro ao carregar o histórico do banco.</p>';
+      lista.innerHTML = '<p style="font-size: 0.75rem; color: #f43f5e;">Erro ao carregar o histórico do banco.</p>';
     });
 }
+
+// Executa a função de atualizar a data automaticamente assim que o documento HTML carregar
+document.addEventListener('DOMContentLoaded', () => {
+    atualizarDataAtual();
+});

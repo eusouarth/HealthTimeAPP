@@ -24,23 +24,23 @@
 
   <!-- NAVEGAÇÃO ENTRE TELAS -->
   <nav class="nav-tabs">
-    <button class="tab-btn active" onclick="mudarTela('home')">1. Monitor</button>
-    <button class="tab-btn" onclick="mudarTela('historico')">3. Histórico</button>
-    <button class="tab-btn" onclick="mudarTela('telemedicina')">5. Telemedicina</button>
+    <button class="tab-btn active" onclick="mudarTela('home')">Monitoramento</button>
+    <button class="tab-btn" onclick="mudarTela('historico')">Histórico</button>
+    <button class="tab-btn" onclick="mudarTela('telemedicina')">Telemedicina</button>
   </nav>
 
   <!-- ================= TELA 1: MONITORAMENTO ATIVO ================= -->
   <div id="screen-home" class="screen active">
     <div class="card card-welcome">
       <p class="date-text">QUARTA, 21 DE OUTUBRO</p>
-      <h3 class="welcome-title">Bom dia, João</h3>
+      <h3 class="welcome-title">Bom dia, Arthur</h3>
       <p class="welcome-desc">Monitoramento contínuo ativo. Sua pulseira está registrando leituras em tempo real.</p>
     </div>
 
     <div class="card">
       <div class="card-header">
         <span>Frequência Cardíaca</span>
-        <span>🫀</span>
+        <span>❤️</span>
       </div>
       <div class="card-value">
         <span id="bpmValue">72</span> <small>BPM</small>
@@ -61,7 +61,7 @@
 
     <!-- BANNER DE ALERTA DINÂMICO -->
     <div id="alertBanner" class="alert-banner" style="display: none;">
-      <h2>⚠️ ALERTA DE RISCO CARDÍACO!</h2>
+      <h2>ALERTA DE RISCO CARDÍACO!</h2>
       <p id="alertMessage">Anomalia detectada nos sinais vitais.</p>
       <div class="timer-box">Acionando suporte em: <span id="countdown">10</span>s</div>
       <button class="btn-cancel" onclick="cancelarAlerta()">ESTOU BEM (CANCELAR)</button>
@@ -71,8 +71,8 @@
   <!-- ================= TELA 3: HISTÓRICO E DETALHE DO ALERTA ================= -->
   <div id="screen-historico" class="screen">
     <div class="card">
-      <h3 class="section-title">📊 Histórico do Banco de Dados</h3>
-      <p class="section-subtitle">Últimas ocorrências salvas no SQLite via DB Browser.</p>
+      <h3 class="section-title">Histórico</h3>
+      <p class="section-subtitle">Suas últimas ocorrências.</p>
       
       <div id="listaHistorico" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
         <p style="font-size: 0.75rem; color: #94a3b8;">Carregando histórico...</p>
@@ -83,7 +83,7 @@
   <!-- ================= TELA 5: TELEMEDICINA E SUPORTE SUS ================= -->
   <div id="screen-telemedicina" class="screen">
     <div class="card tele-card">
-      <h3 class="tele-title">👩‍⚕️ Teleatendimento Agendado</h3>
+      <h3 class="tele-title">Teleatendimento Agendado</h3>
       <p class="doctor-name">Dra. Fernanda - Cardiologista (SUS)</p>
       <p class="tele-time">📅 Hoje, às 14:30 (Por vídeo)</p>
       
@@ -97,7 +97,7 @@
     </div>
 
     <div class="card">
-      <h3 class="emergency-title">🚨 Preciso de Ajuda Urgente</h3>
+      <h3 class="emergency-title">Preciso de Ajuda Urgente</h3>
       <p class="emergency-desc">Dor no peito, falta de ar intensa ou desmaio exigem atendimento imediato.</p>
       <a href="tel:192" class="btn-samu">Ligar para o SAMU 192</a>
     </div>
@@ -109,7 +109,7 @@
     <div class="btn-group">
       <button class="btn-demo btn-normal" onclick="setCenario('NORMAL')">Normal (72 BPM)</button>
       <button class="btn-demo btn-warning" onclick="setCenario('TAQUICARDIA')">Crítico (138 BPM)</button>
-      <button class="btn-demo btn-danger" onclick="setCenario('QUEDA')">Queda MPU-6050</button>
+      <button class="btn-demo btn-danger" onclick="setCenario('QUEDA')">Queda (MPU-6050)</button>
     </div>
   </footer>
 
