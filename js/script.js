@@ -9,7 +9,7 @@ function atualizarDataAtual() {
     const opcoes = { weekday: 'long', day: 'numeric', month: 'long' };
     let dataFormatada = agora.toLocaleDateString('pt-BR', opcoes);
     
-    // Deixa a primeira letra maiúscula (ex: "quarta-feira, 11 de novembro" -> "Quarta-feira, 11 de novembro")
+    // Deixa a primeira letra maiúscula
     dataFormatada = dataFormatada.charAt(0).toUpperCase() + dataFormatada.slice(1);
     
     elementoData.textContent = dataFormatada;
@@ -33,35 +33,29 @@ let spo2 = 97;
 let timerAlerta = null;
 let alertaJaEnviado = false;
 
+// Função chamada pelos botões de simulação da banca
 function setCenario(novoCenario) {
   cenarioAtual = novoCenario;
-  if (novoCenario === 'NORMAL') {
-    cancelarAlerta();
-  }
-}
-
-setInterval(() => {
-  const bpmElem = document.getElementById('bpmValue');
-  const spo2Elem = document.getElementById('spo2Value');
   const bpmStatusElem = document.getElementById('bpmStatus');
   const alertBanner = document.getElementById('alertBanner');
 
-  if (cenarioAtual === 'NORMAL') {
-    bpm = Math.floor(Math.random() * (75 - 70 + 1)) + 70;
+  if (novoCenario === 'NORMAL') {
+    cancelarAlerta();
+    bpm = 72;
     spo2 = 97;
     bpmStatusElem.innerText = "● Ritmo normal em repouso";
     bpmStatusElem.style.color = "#10b981";
     alertBanner.style.display = 'none';
     alertaJaEnviado = false;
 
-  } else if (cenarioAtual === 'TAQUICARDIA') {
+  } else if (novoCenario === 'TAQUICARDIA') {
     bpm = 138;
     spo2 = 91;
     bpmStatusElem.innerText = "● CRÍTICO: Taquicardia severa";
     bpmStatusElem.style.color = "#f43f5e";
     dispararAlerta("Frequência cardíaca crítica acima de 120 BPM em repouso!");
 
-  } else if (cenarioAtual === 'QUEDA') {
+  } else if (novoCenario === 'QUEDA') {
     bpm = 115;
     spo2 = 93;
     bpmStatusElem.innerText = "● ALERTA: Queda corporal detectada";
@@ -69,9 +63,22 @@ setInterval(() => {
     dispararAlerta("Impacto brusco e imobilidade identificados pelo acelerômetro!");
   }
 
-  if (bpmElem) bpmElem.innerText = bpm;
-  if (spo2Elem) spo2Elem.innerText = spo2;
-}, 2000);
+  document.getElementById('bpmValue').innerText = bpm;
+  document.getElementById('spo2Value').innerText = spo2;
+}
+
+// Loop contínuo para simular oscilações leves apenas no estado NORMAL
+setInterval(() => {
+  if (cenarioAtual === 'NORMAL') {
+    bpm = Math.floor(Math.random() * (78 - 68 + 1)) + 68;
+    spo2 = Math.floor(Math.random() * (99 - 96 + 1)) + 96;
+    
+    const bpmElem = document.getElementById('bpmValue');
+    const spo2Elem = document.getElementById('spo2Value');
+    if (bpmElem) bpmElem.innerText = bpm;
+    if (spo2Elem) spo2Elem.innerText = spo2;
+  }
+}, 3000);
 
 function dispararAlerta(msg) {
   const banner = document.getElementById('alertBanner');
@@ -111,7 +118,6 @@ function cancelarAlerta() {
     timerAlerta = null;
   }
   document.getElementById('alertBanner').style.display = 'none';
-  setCenario('NORMAL');
 }
 
 function salvarAlertaNoBanco(descricao) {
@@ -139,7 +145,7 @@ function carregarHistoricoDoBanco() {
   fetch('api/listar_historico.php')
     .then(res => res.json())
     .then(dados => {
-      if (dados.length === 0) {
+      if (!dados || dados.length === 0) {
         lista.innerHTML = '<p style="font-size: 0.75rem; color: #64748b;">Nenhum registro encontrado no banco.</p>';
         return;
       }
@@ -160,7 +166,7 @@ function carregarHistoricoDoBanco() {
     });
 }
 
-// Executa a função de atualizar a data automaticamente assim que o documento HTML carregar
+// Inicializa a data assim que o documento carregar
 document.addEventListener('DOMContentLoaded', () => {
     atualizarDataAtual();
 });
