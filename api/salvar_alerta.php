@@ -10,10 +10,9 @@ try {
     $input = json_decode(file_get_contents('php://input'), true);
 
     if ($input) {
-        // Captura a data e a hora atual exatas do nosso fuso (Ex: "12/11/2026 21:15:00")
+        // Captura a data e a hora atual no padrão: "12/11/2026 21:15:00"
         $dataHoraAtual = date('d/m/Y H:i:s');
 
-        // Note que agora incluímos a coluna 'data_hora' (confirme se o nome da coluna no seu banco é exatamente 'data_hora')
         $stmt = $pdo->prepare("INSERT INTO alertas_emergencia (bpm, spo2, tipo_evento, descricao, data_hora) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([
             $input['bpm'], 

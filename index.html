@@ -9,10 +9,10 @@
 </head>
 <body>
 
-  <!-- CABEÇALHO COM A LOGO OFICIAL -->
+  <!-- CABEÇALHO COM A LOGO -->
   <header class="app-header">
     <div class="logo-container">
-      <!-- Ícone do Coração com Eletrocardiograma -->
+      <!-- Ícone do Coração da Logo -->
       <svg class="logo-heart" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M3.5 12h4l2-4 3 8 2-4h5" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -29,7 +29,7 @@
     <button class="tab-btn" onclick="mudarTela('telemedicina')">Telemedicina</button>
   </nav>
 
-  <!-- ================= TELA 1: MONITORAMENTO ATIVO ================= -->
+  <!-- TELA 1 - MONITORAMENTO ATIVO -->
   <div id="screen-home" class="screen active">
     <div class="card card-welcome">
       <p class="date-text">QUARTA, 21 DE OUTUBRO</p>
@@ -59,7 +59,7 @@
       <div class="card-status" style="color: #38bdf8;">● Nível ideal de perfusão</div>
     </div>
 
-    <!-- BANNER DE ALERTA DINÂMICO -->
+    <!-- BANNER DE ALERTA -->
     <div id="alertBanner" class="alert-banner" style="display: none;">
       <h2>ALERTA DE RISCO CARDÍACO!</h2>
       <p id="alertMessage">Anomalia detectada nos sinais vitais.</p>
@@ -68,7 +68,7 @@
     </div>
   </div>
 
-  <!-- ================= TELA 3: HISTÓRICO E DETALHE DO ALERTA ================= -->
+  <!-- TELA 2 - HISTÓRICO -->
   <div id="screen-historico" class="screen">
     <div class="card">
       <h3 class="section-title">Histórico</h3>
@@ -80,7 +80,7 @@
     </div>
   </div>
 
-  <!-- ================= TELA 5: TELEMEDICINA E SUPORTE SUS ================= -->
+  <!-- TELA 3 - TELEMEDICINA E SUPORTE -->
   <div id="screen-telemedicina" class="screen">
     <div class="card tele-card">
       <h3 class="tele-title">Teleatendimento Agendado</h3>
@@ -103,7 +103,7 @@
     </div>
   </div>
 
-  <!-- PAINEL DE CONTROLE PARA O DIA DA APRESENTAÇÃO (TCC) -->
+  <!-- BOTÕES DE SIMUAÇÃO -->
   <footer class="demo-controls">
     <p>Painel de Demonstração (Banca do TCC)</p>
     <div class="btn-group">

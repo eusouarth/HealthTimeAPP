@@ -5,7 +5,7 @@ function atualizarDataAtual() {
 
     const agora = new Date();
     
-    // Formata o dia da semana, dia do mês e mês por extenso
+    // Formata o dia da semana, dia do mês e mês
     const opcoes = { weekday: 'long', day: 'numeric', month: 'long' };
     let dataFormatada = agora.toLocaleDateString('pt-BR', opcoes);
     
@@ -90,7 +90,7 @@ function dispararAlerta(msg) {
   txtMsg.innerText = msg;
   banner.style.display = 'block';
 
-  let tempo = 10;
+  let tempo = 5;
   countdown.innerText = tempo;
 
   if (!timerAlerta) {
